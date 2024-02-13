@@ -1,152 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Countdown Timer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
-<style>
-  #countdown {
-    font-size: 24px;
-  }
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    background: linear-gradient(to bottom, #4F86F7, #1C4E91);
-    overflow: hidden;
-    font-family: "Cairo", sans-serif;
-    text-align: center;
-    direction: rtl;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+  <style>
+    #countdown {
+      font-size: 24px;
+    }
 
-  .circle {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 50%;
-  }
-  h1{
-    font-weight: bold;
-    letter-spacing: 2px;
-    color:white;
-  }
-  .row {
-    display: flex;
-    justify-content: center;
-    background-color: rgba(255, 255, 255, 0.4);
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #4F86F7, #1C4E91);
+      overflow: hidden;
+      font-family: "Cairo", sans-serif;
+      text-align: center;
+      direction: rtl;
+    }
 
-  }
-  .row .card{
-    width: 100px;
-    color: white;
-    margin: .5rem;
-  }
-  .card div:nth-child(1){
-    font-size: 2rem;
+    .circle {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+    }
 
-  }
-  .vertical-hr {
-    border: none;
-    background-color:  #eee;
-    height: 50px;
-    width: 2px;
-    margin: auto 10px; 
-  }
-</style>
+    h1 {
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: white;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.4);
+
+    }
+
+    .row .card {
+      width: 100px;
+      color: white;
+      margin: .5rem;
+    }
+
+    .card div:nth-child(1) {
+      font-size: 2rem;
+
+    }
+
+    .vertical-hr {
+      border: none;
+      background-color: #eee;
+      height: 50px;
+      width: 2px;
+      margin: auto 10px;
+    }
+  </style>
 </head>
+
 <body>
-<h1>العد التنازلي</h1>
-<div class="row">
+  <h1>العد التنازلي</h1>
+  <div class="row">
     <div class="card">
-        <div class="month-number"></div>
-        <div class="month">شهر</div>
+      <div class="month-number"></div>
+      <div class="month">شهر</div>
     </div>
     <span class="vertical-hr"></span>
 
     <div class="card">
-        <div class="day-number"></div>
-        <div class="day">يوم</div>
+      <div class="day-number"></div>
+      <div class="day">يوم</div>
     </div>
     <span class="vertical-hr"></span>
 
     <div class="card">
-        <div class="hour-number"></div>
-        <div class="hour">ساعة</div>
+      <div class="hour-number"></div>
+      <div class="hour">ساعة</div>
     </div>
     <span class="vertical-hr"></span>
 
     <div class="card">
-        <div class="minute-number"></div>
-        <div class="minute">دقيقة</div>
+      <div class="minute-number"></div>
+      <div class="minute">دقيقة</div>
     </div>
     <span class="vertical-hr"></span>
 
     <div class="card">
-        <div class="second-number"></div>
-        <div class="second">ثانية</div>
+      <div class="second-number"></div>
+      <div class="second">ثانية</div>
     </div>
-</div>
-<div id="countdown"></div>
-<!-- <div class="circle"></div> -->
-<script>
-// Set the target date and time (year, month (0-indexed), day, hours, minutes, seconds)
-const targetDate = new Date("2024-07-21T08:00:00").getTime();
+  </div>
+  <div id="countdown"></div>
+  <!-- <div class="circle"></div> -->
+  <script>
+    // Function to check if a year is a leap year
+    function isLeapYear(year) {
+      return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
 
-// Update the countdown every second
-const timerInterval = setInterval(() => {
-  // Get the current date and time
-  const now = new Date().getTime();
+    // Set the target date and time (year, month (0-indexed), day, hours, minutes, seconds)
+    const targetDate = new Date("2024-07-31T20:00:00").getTime();
 
-  // Calculate the remaining time
-  const distance = targetDate - now;
-  // Calculate months, days, hours, minutes, and seconds
-  const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30.44)); // Average number of days in a month
-  const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  // Convert numbers to Arabic numerals
-  const arabicMonths = months.toLocaleString('ar-EG');
-  const arabicDays = days.toLocaleString('ar-EG');
-  const arabicHours = hours.toLocaleString('ar-EG');
-  const arabicMinutes = minutes.toLocaleString('ar-EG');
-  const arabicSeconds = seconds.toLocaleString('ar-EG');
+    // Update the countdown every second
+    const timerInterval = setInterval(() => {
+      // Get the current date and time
+      const now = new Date().getTime();
 
-  // Display the countdown
-  document.querySelector('.month-number').innerText =`${arabicMonths}`;
-  document.querySelector('.hour-number').innerText =`${arabicDays}`;
-  document.querySelector('.day-number').innerText =`${arabicHours}`;
-  document.querySelector('.minute-number').innerText =`${arabicMinutes}`;
-  document.querySelector('.second-number').innerText =`${arabicSeconds}`;
+      // Calculate the remaining time
+      const distance = targetDate - now;
 
-  // If the countdown is finished, display a message and clear the interval
-  if (distance < 0) {
-    clearInterval(timerInterval);
-    document.getElementById("countdown").innerHTML = "انتهى الوقت";
-  }
-}, 1000); // Update every second
-// Function to create circles
-function createCircle() {
-  const circle = document.createElement("div");
-  circle.classList.add("circle");
-  const size = Math.random() * 100 + 20; // Random size between 20 and 120px
-  circle.style.width = size + "px";
-  circle.style.height = size + "px";
-  circle.style.left = Math.random() * window.innerWidth + "px";
-  circle.style.top = Math.random() * window.innerHeight + "px";
-  document.body.appendChild(circle);
+      // Calculate months, days, hours, minutes, and seconds
+      const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30.44)); // Average number of milliseconds in a month
+      let remainingDistance = distance - months * (1000 * 60 * 60 * 24 * 30.44);
+      const days = Math.floor(remainingDistance / (1000 * 60 * 60 * 24));
+      remainingDistance -= days * (1000 * 60 * 60 * 24);
+      const hours = Math.floor(remainingDistance / (1000 * 60 * 60));
+      remainingDistance -= hours * (1000 * 60 * 60);
+      const minutes = Math.floor(remainingDistance / (1000 * 60));
+      remainingDistance -= minutes * (1000 * 60);
+      const seconds = Math.floor(remainingDistance / 1000);
 
-  // Remove circle after some time
-  setTimeout(() => {
-    circle.remove();
-  }, 5000); // Remove after 5 seconds
-}
+      // Convert numbers to Arabic numerals
+      const arabicMonths = months.toLocaleString('ar-EG');
+      const arabicDays = days.toLocaleString('ar-EG');
+      const arabicHours = hours.toLocaleString('ar-EG');
+      const arabicMinutes = minutes.toLocaleString('ar-EG');
+      const arabicSeconds = seconds.toLocaleString('ar-EG');
 
-// Create circles every 200 milliseconds
-setInterval(createCircle, 500);
-</script>
+      // Display the countdown
+      document.querySelector('.month-number').innerText = `${arabicMonths}`;
+      document.querySelector('.day-number').innerText = `${arabicDays}`;
+      document.querySelector('.hour-number').innerText = `${arabicHours}`;
+      document.querySelector('.minute-number').innerText = `${arabicMinutes}`;
+      document.querySelector('.second-number').innerText = `${arabicSeconds}`;
+
+      // If the countdown is finished, display a message and clear the interval
+      if (distance < 0) {
+        clearInterval(timerInterval);
+        document.getElementById("countdown").innerHTML = "انتهى الوقت";
+      }
+    }, 1000); // Update every second
+
+    // Function to create circles
+    function createCircle() {
+      const circle = document.createElement("div");
+      circle.classList.add("circle");
+      const size = Math.random() * 100 + 20; // Random size between 20 and 120px
+      circle.style.width = size + "px";
+      circle.style.height = size + "px";
+      circle.style.left = Math.random() * window.innerWidth + "px";
+      circle.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(circle);
+
+      // Remove circle after some time
+      setTimeout(() => {
+        circle.remove();
+      }, 5000); // Remove after 5 seconds
+    }
+
+    // Create circles every 200 milliseconds
+    setInterval(createCircle, 500);
+
+  </script>
 
 </body>
+
 </html>
